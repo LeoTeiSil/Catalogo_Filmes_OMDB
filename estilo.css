@@ -1,0 +1,65 @@
+h1.title {
+    background-color: gray;
+    color: white;
+    text-align: center;
+    background-image: url(img/form.webp);
+}
+
+form{
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: yellow;
+}
+
+form.input#pesquisa{
+    padding: 5px;
+    border: none;
+    outline: none;
+    flex: 1px;
+}
+
+form button{
+    padding: 5px 10px;
+    background-color: yellow;
+    color: black;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+div.item img{
+    height: 800px;
+    width: 100%;
+}
+
+div.lista {
+    margin-top: 10px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.item:hover{
+    background-color: gray;
+    cursor: pointer;
+}
+
+div.item {
+    height: 900px;
+    text-align: center;
+    padding: 10px;
+    margin: 5px;
+    flex: 1 1 200px;
+    border: 2px solid red;
+}
+
+
+body {
+    background-color: #000;
+    background-image: url('img/colagem-de-fundo-de-filme_23-2149876013.avif');
+    background-repeat: no-repeat;
+    background-size: cover; /* Adiciona esta linha para cobrir todo o fundo */
+    background-position: center; /* Adiciona esta linha para centralizar a imagem */
+}
