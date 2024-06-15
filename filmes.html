@@ -13,21 +13,25 @@
             padding: 0;
             font-family: Arial, Helvetica, sans-serif;
         }
-    </style>
-</head>
 
-<body>
-
-    <style>
         body {
             background-image: url(img/colagem-de-fundo-de-filme_23-2149876013.avif);
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
         }
+
+        .lista .item {
+            cursor: pointer;
+        }
+
+        .detalhes {
+            display: none;
+        }
     </style>
+</head>
 
-
+<body>
     <h1 class="title">Filmes</h1>
     <form>
         <input name="pesquisa" placeholder="Digite o nome do filme">
@@ -49,8 +53,22 @@
         <div class="item">
             <h2>Batman vs Superman: A origem da Justiça (2016)</h2>
             <img src="img/batman vs superman.jpg" alt="">
-        </div> <!-- Tag <div> corrigida aqui -->
+        </div>
     </div>
+
+    <div class="detalhes">
+        <h2 id="Title"></h2>
+        <img id="Poster" src="" alt="">
+        <p>Sinopse:</p>
+        <p id="Plot"></p>
+        <p><strong>Ano:</strong> <span id="Year"></span></p>
+        <p><strong>Genêro:</strong> <span id="Genre"></span></p>
+        <p><strong>Diretor:</strong> <span id="Director"></span></p>
+        <p><strong>Atores:</strong> <span id="Actors"></span></p>
+        <p><strong>Atores:</strong> <span id="Actors"></span></p>
+        <button onclick="voltar()">Voltar</button>
+    </div>
+
     <script>
         const apikey = '69bc4860&i';
 
@@ -61,18 +79,19 @@
 
             const pesquisa = ev.target.pesquisa.value;
 
-            if (pesquisa == "") {
-                alert('Preencha o campo!')
+            if (pesquisa === "") {
+                alert('Preencha o campo!');
                 return;
             }
 
-            fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`) // Corrigido para incluir &
-                .then(result => result.json()) // Corrigido para chamar json()
+            fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
+                .then(result => result.json())
                 .then(json => carregaLista(json))
-                .catch(error => console.error('Erro:', error)); // Adiciona tratamento de erro
+                .catch(error => console.error('Erro:', error));
         }
 
         const carregaLista = (json) => {
+            console.log('carregaLista chamada', json);
             const lista = document.querySelector("div.lista");
             lista.innerHTML = "";
 
@@ -81,16 +100,44 @@
                 return;
             }
 
-            json.Search.forEach(element => { // Corrigido para iterar diretamente sobre json.Search
-                console.log(element);
-
+            json.Search.forEach(element => {
                 let item = document.createElement("div");
                 item.classList.add("item");
 
-                item.innerHTML = `<img src="${element.Poster}" alt="Poster de ${element.Title}"/><h2>${element.Title}</h2>`; // Correção do innerHTML
+                item.innerHTML = `<img src="${element.Poster}" alt="Poster de ${element.Title}"/><h2>${element.Title}</h2>`;
+                item.onclick = () => {
+                    console.log('Item clicado', element.imdbID);
+                    carregaDetalhes(element.imdbID);
+                };
 
                 lista.appendChild(item);
             });
+        }
+
+        const carregaDetalhes = (id) => {
+            console.log('carregaDetalhes chamada', id);
+            fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
+                .then(result => result.json())
+                .then(json => {
+                    console.log('Detalhes do filme:', json);
+                    const detalhes = document.querySelector("div.detalhes");
+                    document.getElementById("Title").innerText = json.Title;
+                    document.getElementById("Poster").src = json.Poster;
+                    document.getElementById("Plot").innerText = json.Plot;
+                    document.getElementById("Year").innerText = json.Year;
+                    document.getElementById("Genre").innerText = json.Genre;
+                    document.getElementById("Director").innerText = json.Director;
+                    document.getElementById("Actors").innerText = json.Actors;
+
+                    detalhes.style.display = "block";
+                    document.querySelector("div.lista").style.display = "none";
+                })
+                .catch(error => console.error('Erro:', error));
+        }
+
+        const voltar = () => {
+            document.querySelector("div.detalhes").style.display = "none";
+            document.querySelector("div.lista").style.display = "block";
         }
     </script>
 </body>

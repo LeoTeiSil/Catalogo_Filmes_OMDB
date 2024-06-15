@@ -63,3 +63,10 @@ body {
     background-size: cover; /* Adiciona esta linha para cobrir todo o fundo */
     background-position: center; /* Adiciona esta linha para centralizar a imagem */
 }
+
+div.detalhes{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    line-height: 25px;
+}
