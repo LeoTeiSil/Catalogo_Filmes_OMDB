@@ -38,19 +38,19 @@
         <button>Pesquisar</button>
     </form>
     <div class="lista">
-        <div class="item">
+        <div class="item" data-imdbid="tt0372784">
             <h2>Batman Begins (2005)<br><br></h2>
             <img src="img/Batman_begins.jpg" alt="">
         </div>
-        <div class="item">
+        <div class="item" data-imdbid="tt0468569">
             <h2>O Cavaleiro das Trevas (2008)<br><br></h2>
             <img src="img/cavaleiro das trevas.jpg" alt="">
         </div>
-        <div class="item">
+        <div class="item" data-imdbid="tt1345836">
             <h2>Batman: O Cavaleiro das Trevas Ressurge (2012)</h2>
             <img src="img/ressurge.jpg" alt="">
         </div>
-        <div class="item">
+        <div class="item" data-imdbid="tt2975590">
             <h2>Batman vs Superman: A origem da Justiça (2016)</h2>
             <img src="img/batman vs superman.jpg" alt="">
         </div>
@@ -62,9 +62,8 @@
         <p>Sinopse:</p>
         <p id="Plot"></p>
         <p><strong>Ano:</strong> <span id="Year"></span></p>
-        <p><strong>Genêro:</strong> <span id="Genre"></span></p>
+        <p><strong>Gênero:</strong> <span id="Genre"></span></p>
         <p><strong>Diretor:</strong> <span id="Director"></span></p>
-        <p><strong>Atores:</strong> <span id="Actors"></span></p>
         <p><strong>Atores:</strong> <span id="Actors"></span></p>
         <button onclick="voltar()">Voltar</button>
     </div>
@@ -139,6 +138,13 @@
             document.querySelector("div.detalhes").style.display = "none";
             document.querySelector("div.lista").style.display = "block";
         }
+
+        document.querySelectorAll('.lista .item').forEach(item => {
+            item.onclick = () => {
+                const imdbID = item.getAttribute('data-imdbid');
+                carregaDetalhes(imdbID);
+            };
+        });
     </script>
 </body>
 
