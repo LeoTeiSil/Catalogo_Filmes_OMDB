@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css">
     <script src="catalogo.js"></script>
-    <title>Filmes</title>
+    <title>Conectados_Catálogo</title>
     <style>
         * {
             margin: 0;
@@ -19,46 +19,119 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
+            background-position: center;
         }
 
-        .lista .item {
+        h1.title {
+            background-color: gray;
+            color: white;
+            text-align: center;
+            background-image: url(img/form.webp);
+        }
+
+        form {
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid black;
+            border-radius: 20px;
+            background-color: yellow;
+        }
+
+        form input#pesquisa {
+            padding: 5px;
+            border: none;
+            outline: none;
+            flex: 1;
+        }
+
+        form button {
+            padding: 5px 10px;
+            background-color: yellow;
+            color: black;
+            border-radius: 10px;
+            border: 2px solid black;
+        }
+
+        div.lista {
+            margin-top: 10px;
+            padding: 5px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        div.item {
+            height: 900px;
+            text-align: center;
+            padding: 10px;
+            margin: 5px;
+            flex: 1 1 200px;
+            border: 2px solid red;
+        }
+
+        div.item img {
+            height: 800px;
+            width: 100%;
+        }
+
+        div.item:hover {
+            background-color: gray;
             cursor: pointer;
         }
 
-        .detalhes {
+        div.detalhes {
+            text-align: center;
+            color: black;
+            font-weight: bold;
+            line-height: 25px;
             display: none;
         }
+
+        .detalhes img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        
     </style>
 </head>
 
 <body>
+    
     <h1 class="title">Filmes</h1>
     <form>
-        <input name="pesquisa" placeholder="Digite o nome do filme">
+        <input name="pesquisa" id="pesquisa" placeholder="Digite o nome do filme">
         <button>Pesquisar</button>
     </form>
+
+    <div class="Menu">
+        <a href="#">
+
+        </a>
+    </div>
+
     <div class="lista">
         <div class="item" data-imdbid="tt0372784">
             <h2>Batman Begins (2005)<br><br></h2>
-            <img src="img/Batman_begins.jpg" alt="">
+            <img src="img/Batman_begins.jpg" alt="Batman Begins Poster">
         </div>
         <div class="item" data-imdbid="tt0468569">
             <h2>O Cavaleiro das Trevas (2008)<br><br></h2>
-            <img src="img/cavaleiro das trevas.jpg" alt="">
+            <img src="img/cavaleiro das trevas.jpg" alt="O Cavaleiro das Trevas Poster">
         </div>
         <div class="item" data-imdbid="tt1345836">
             <h2>Batman: O Cavaleiro das Trevas Ressurge (2012)</h2>
-            <img src="img/ressurge.jpg" alt="">
+            <img src="img/ressurge.jpg" alt="Batman: O Cavaleiro das Trevas Ressurge Poster">
         </div>
         <div class="item" data-imdbid="tt2975590">
             <h2>Batman vs Superman: A origem da Justiça (2016)</h2>
-            <img src="img/batman vs superman.jpg" alt="">
+            <img src="img/batman vs superman.jpg" alt="Batman vs Superman: A origem da Justiça Poster">
         </div>
     </div>
 
     <div class="detalhes">
         <h2 id="Title"></h2>
-        <img id="Poster" src="" alt="">
+        <img id="Poster" src="" alt="Poster do Filme">
         <p>Sinopse:</p>
         <p id="Plot"></p>
         <p><strong>Ano:</strong> <span id="Year"></span></p>
@@ -67,58 +140,54 @@
         <p><strong>Atores:</strong> <span id="Actors"></span></p>
         <button onclick="voltar()">Voltar</button>
     </div>
-
     <script>
         const apikey = '69bc4860&i';
-
+        const translateApiUrl = 'https://libretranslate.de/translate';
+    
         const frmPesquisa = document.querySelector("form");
-
+    
         frmPesquisa.onsubmit = (ev) => {
             ev.preventDefault();
-
+    
             const pesquisa = ev.target.pesquisa.value;
-
+    
             if (pesquisa === "") {
                 alert('Preencha o campo!');
                 return;
             }
-
+    
             fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => carregaLista(json))
                 .catch(error => console.error('Erro:', error));
         }
-
+    
         const carregaLista = (json) => {
-            console.log('carregaLista chamada', json);
             const lista = document.querySelector("div.lista");
             lista.innerHTML = "";
-
+    
             if (json.Response === "False") {
                 lista.innerHTML = `<p>Filme não encontrado.</p>`;
                 return;
             }
-
+    
             json.Search.forEach(element => {
                 let item = document.createElement("div");
                 item.classList.add("item");
-
+    
                 item.innerHTML = `<img src="${element.Poster}" alt="Poster de ${element.Title}"/><h2>${element.Title}</h2>`;
                 item.onclick = () => {
-                    console.log('Item clicado', element.imdbID);
                     carregaDetalhes(element.imdbID);
                 };
-
+    
                 lista.appendChild(item);
             });
         }
-
+    
         const carregaDetalhes = (id) => {
-            console.log('carregaDetalhes chamada', id);
             fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => {
-                    console.log('Detalhes do filme:', json);
                     const detalhes = document.querySelector("div.detalhes");
                     document.getElementById("Title").innerText = json.Title;
                     document.getElementById("Poster").src = json.Poster;
@@ -127,25 +196,50 @@
                     document.getElementById("Genre").innerText = json.Genre;
                     document.getElementById("Director").innerText = json.Director;
                     document.getElementById("Actors").innerText = json.Actors;
-
+    
+                    traduzirSinopse(json.Plot);
+    
                     detalhes.style.display = "block";
                     document.querySelector("div.lista").style.display = "none";
                 })
                 .catch(error => console.error('Erro:', error));
         }
-
+    
+        const traduzirSinopse = (texto) => {
+            fetch(translateApiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    q: texto,
+                    source: 'en',
+                    target: 'pt',
+                    format: 'text'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("Plot").innerText = data.translatedText;
+            })
+            .catch(error => console.error('Erro na tradução:', error));
+        }
+    
         const voltar = () => {
             document.querySelector("div.detalhes").style.display = "none";
             document.querySelector("div.lista").style.display = "block";
         }
-
+    
         document.querySelectorAll('.lista .item').forEach(item => {
             item.onclick = () => {
                 const imdbID = item.getAttribute('data-imdbid');
                 carregaDetalhes(imdbID);
             };
         });
+        
     </script>
+
+<div class="gtranslate_wrapper"></div>
+<script>window.gtranslateSettings = {"default_language":"en","languages":["en","fr","de","it","es","pt"],"wrapper_selector":".gtranslate_wrapper","switcher_vertical_position":"top"}</script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
 </body>
 
 </html>
