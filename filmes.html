@@ -13,198 +13,194 @@
             padding: 0;
             font-family: Arial, Helvetica, sans-serif;
         }
-
-        body {
-            background-image: url(img/colagem-de-fundo-de-filme_23-2149876013.avif);
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-        }
-
-        h1.title {
-            background-color: gray;
-            color: white;
-            text-align: center;
-            background-image: url(img/form.webp);
-        }
-
-        form {
-            text-align: center;
-            padding: 10px;
-            margin-top: 10px;
-            border: 2px solid black;
-            border-radius: 20px;
-            background-color: yellow;
-        }
-
-        form input#pesquisa {
-            padding: 5px;
-            border: none;
-            outline: none;
-            flex: 1;
-        }
-
-        form button {
-            padding: 5px 10px;
-            background-color: yellow;
-            color: black;
-            border-radius: 10px;
-            border: 2px solid black;
-        }
-
-        div.lista {
-            margin-top: 10px;
-            padding: 5px;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        div.item {
-            height: 900px;
-            text-align: center;
-            padding: 10px;
-            margin: 5px;
-            flex: 1 1 200px;
-            border: 2px solid red;
-        }
-
-        div.item img {
-            height: 800px;
-            width: 100%;
-        }
-
-        div.item:hover {
-            background-color: gray;
-            cursor: pointer;
-        }
-
-        div.detalhes {
-            text-align: center;
-            color: black;
-            font-weight: bold;
-            line-height: 25px;
-            display: none;
-        }
-
-        .detalhes img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        
     </style>
 </head>
 
 <body>
-    
-    <h1 class="title">Filmes</h1>
-    <form>
-        <input name="pesquisa" id="pesquisa" placeholder="Digite o nome do filme">
-        <button>Pesquisar</button>
-    </form>
+    <div class="header">
+        <h1 id="siteTitle">FILMES</h1>
 
-    <div class="Menu">
-        <a href="#">
+        <script>
+            document.getElementById('siteTitle').addEventListener('click', function() {
+                window.location.reload();
+            });
 
-        </a>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const savedOrder = JSON.parse(localStorage.getItem('filmOrder'));
+                if (savedOrder) {
+                    const filmList = document.getElementById('filmList');
+                    const films = Array.from(filmList.children);
+                    films.sort((a, b) => savedOrder.indexOf(a.dataset.id) - savedOrder.indexOf(b.dataset.id));
+                    films.forEach(film => filmList.appendChild(film));
+                }
+            });
+
+            function saveFilmOrder() {
+                const filmList = document.getElementById('filmList');
+                const order = Array.from(filmList.children).map(film => film.dataset.id);
+                localStorage.setItem('filmOrder', JSON.stringify(order));
+            }
+        </script>
+
+        <form>
+            <input name="pesquisa" id="pesquisa" placeholder="Digite o nome do filme">
+            <button>Pesquisar</button>
+        </form>
     </div>
 
-    <div class="lista">
-        <div class="item" data-imdbid="tt0372784">
-            <h2>Batman Begins (2005)<br><br></h2>
-            <img src="img/Batman_begins.jpg" alt="Batman Begins Poster">
+    <P class="melhor">MELHORES FILMES:</P>
+    <div class="lista" id="filmList">
+        <div class="item" data-id="1">
+            <h2>A Lista de Schindler (1993)</h2>
+            <img src="img/lista.jpg" alt="A Lista de Schindler">
+            <button class="detalhes" onclick="carregaDetalhes('tt0108052')">Detalhes</button>
         </div>
-        <div class="item" data-imdbid="tt0468569">
-            <h2>O Cavaleiro das Trevas (2008)<br><br></h2>
-            <img src="img/cavaleiro das trevas.jpg" alt="O Cavaleiro das Trevas Poster">
+        <div class="item" data-id="2">
+            <h2>2001: Uma Odisséia no Espaço (1968)</h2>
+            <img src="img/espaço.jpg" alt="2001: Uma Odisséia no Espaço">
+            <button class="detalhes" onclick="carregaDetalhes('tt0062622')">Detalhes</button>
         </div>
-        <div class="item" data-imdbid="tt1345836">
-            <h2>Batman: O Cavaleiro das Trevas Ressurge (2012)</h2>
-            <img src="img/ressurge.jpg" alt="Batman: O Cavaleiro das Trevas Ressurge Poster">
+        <div class="item" data-id="3">
+            <h2>E.T. - O Extraterrestre (1982)</h2>
+            <img src="img/et.jpg" alt="E.T. - O Extraterrestre">
+            <button class="detalhes" onclick="carregaDetalhes('tt0083866')">Detalhes</button>
         </div>
-        <div class="item" data-imdbid="tt2975590">
-            <h2>Batman vs Superman: A origem da Justiça (2016)</h2>
-            <img src="img/batman vs superman.jpg" alt="Batman vs Superman: A origem da Justiça Poster">
+
+        <div class="item" data-id="4">
+            <h2>O Poderoso Chefão: Parte II (1974)</h2>
+            <img src="img/chefe 2.jpg" alt="O Poderoso Chefão: Parte II">
+            <button class="detalhes" onclick="carregaDetalhes('tt0071562')">Detalhes</button>
+        </div>
+        <div class="item" data-id="5">
+            <h2>Casablanca (1942)</h2>
+            <img src="img/casa.jpg" alt="Casablanca">
+            <button class="detalhes" onclick="carregaDetalhes('tt0034583')">Detalhes</button>
+        </div>
+        <div class="item" data-id="6">
+            <h2>Pulp Fiction - Tempo de Violência (1994)</h2>
+            <img src="img/pulp.jpg" alt="Pulp Fiction - Tempo de Violência">
+            <button class="detalhes" onclick="carregaDetalhes('tt0110912')">Detalhes</button>
+        </div>
+
+        <div class="item" data-id="7">
+            <h2>Um Sonho de Liberdade (1994)</h2>
+            <img src="img/shaw.jpg" alt="Um Sonho de Liberdade">
+            <button class="detalhes" onclick="carregaDetalhes('tt0111161')">Detalhes</button>
+        </div>
+        <div class="item" data-id="8">
+            <h2>Cidadão Kane (1941)</h2>
+            <img src="img/kane.jpg" alt="Cidadão Kane">
+            <button class="detalhes" onclick="carregaDetalhes('tt0033467')">Detalhes</button>
+        </div>
+        <div class="item" data-id="9">
+            <h2>O Mágico de Oz (1939)</h2>
+            <img src="img/OZ.jpeg" alt="O Mágico de Oz">
+            <button class="detalhes" onclick="carregaDetalhes('tt0032138')">Detalhes</button>
+        </div>
+
+        <div class="item" data-id="10">
+            <h2>O Poderoso Chefão (1972)</h2>
+            <img src="img/CHEFE.jpeg" alt="O Poderoso Chefão">
+            <button class="detalhes" onclick="carregaDetalhes('tt0068646')">Detalhes</button>
+        </div>
+
+        <div class="item" data-id="11">
+            <h2>Star Wars: Uma Nova Esperança (1977)</h2>
+            <img src="img/star.jpg" alt="Star Wars: Uma Nova Esperança">
+            <button class="detalhes" onclick="carregaDetalhes('tt0076759')">Detalhes</button>
+        </div>
+        <div class="item" data-id="12">
+            <h2>De Volta Para o Futuro (1985)</h2>
+            <img src="img/guturo.jpg" alt="De Volta Para o Futuro">
+            <button class="detalhes" onclick="carregaDetalhes('tt0088763')">Detalhes</button>
+        </div>
+        <div class="item" data-id="13">
+            <h2>Indiana Jones e os Caçadores da Arca Perdida (1981)</h2>
+            <img src="img/jones.jpg" alt="Indiana Jones e os Caçadores da Arca Perdida">
+            <button class="detalhes" onclick="carregaDetalhes('tt0082971')">Detalhes</button>
         </div>
     </div>
 
     <div class="detalhes">
         <h2 id="Title"></h2>
+        <p><strong>Ano:</strong> <span id="Year"></span></p>
         <img id="Poster" src="" alt="Poster do Filme">
+        <div class="rating-container">
+            <h1>&#9733</h1>
+             <span id="imdbRating"></span></p>
+        </div>
+        
         <p>Sinopse:</p>
         <p id="Plot"></p>
-        <p><strong>Ano:</strong> <span id="Year"></span></p>
         <p><strong>Gênero:</strong> <span id="Genre"></span></p>
         <p><strong>Diretor:</strong> <span id="Director"></span></p>
         <p><strong>Atores:</strong> <span id="Actors"></span></p>
-        <button onclick="voltar()">Voltar</button>
+        <p><strong>BoxOffice:</strong> <span id="BoxOffice"></span></p>
+        <p>Para voltar a tela incial clique no título do site "FILMES"</p>
     </div>
+
     <script>
         const apikey = '69bc4860&i';
         const translateApiUrl = 'https://libretranslate.de/translate';
-    
+
         const frmPesquisa = document.querySelector("form");
-    
+
         frmPesquisa.onsubmit = (ev) => {
             ev.preventDefault();
-    
+
             const pesquisa = ev.target.pesquisa.value;
-    
+
             if (pesquisa === "") {
                 alert('Preencha o campo!');
                 return;
             }
-    
+
             fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => carregaLista(json))
                 .catch(error => console.error('Erro:', error));
         }
-    
+
         const carregaLista = (json) => {
             const lista = document.querySelector("div.lista");
             lista.innerHTML = "";
-    
+
             if (json.Response === "False") {
                 lista.innerHTML = `<p>Filme não encontrado.</p>`;
                 return;
             }
-    
+
             json.Search.forEach(element => {
                 let item = document.createElement("div");
                 item.classList.add("item");
-    
-                item.innerHTML = `<img src="${element.Poster}" alt="Poster de ${element.Title}"/><h2>${element.Title}</h2>`;
-                item.onclick = () => {
-                    carregaDetalhes(element.imdbID);
-                };
-    
+
+                item.innerHTML = `<img src="${element.Poster}" alt="Poster de ${element.Title}"/><h2>${element.Title}</h2><button class="detalhes" onclick="carregaDetalhes('${element.imdbID}')">Detalhes</button>`;
                 lista.appendChild(item);
             });
         }
-    
+
         const carregaDetalhes = (id) => {
             fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => {
                     const detalhes = document.querySelector("div.detalhes");
                     document.getElementById("Title").innerText = json.Title;
-                    document.getElementById("Poster").src = json.Poster;
-                    document.getElementById("Plot").innerText = json.Plot;
                     document.getElementById("Year").innerText = json.Year;
+                    document.getElementById("Poster").src = json.Poster;
+                    document.getElementById("imdbRating").innerText = json.imdbRating;
+                    document.getElementById("Plot").innerText = json.Plot;
                     document.getElementById("Genre").innerText = json.Genre;
                     document.getElementById("Director").innerText = json.Director;
                     document.getElementById("Actors").innerText = json.Actors;
-    
+                    document.getElementById("BoxOffice").innerText = json.BoxOffice;
                     traduzirSinopse(json.Plot);
-    
+
                     detalhes.style.display = "block";
                     document.querySelector("div.lista").style.display = "none";
                 })
                 .catch(error => console.error('Erro:', error));
         }
-    
+
         const traduzirSinopse = (texto) => {
             fetch(translateApiUrl, {
                 method: 'POST',
@@ -222,24 +218,23 @@
             })
             .catch(error => console.error('Erro na tradução:', error));
         }
-    
+
         const voltar = () => {
             document.querySelector("div.detalhes").style.display = "none";
             document.querySelector("div.lista").style.display = "block";
         }
-    
-        document.querySelectorAll('.lista .item').forEach(item => {
-            item.onclick = () => {
-                const imdbID = item.getAttribute('data-imdbid');
-                carregaDetalhes(imdbID);
-            };
-        });
-        
     </script>
 
-<div class="gtranslate_wrapper"></div>
-<script>window.gtranslateSettings = {"default_language":"en","languages":["en","fr","de","it","es","pt"],"wrapper_selector":".gtranslate_wrapper","switcher_vertical_position":"top"}</script>
-<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+    <div class="gtranslate_wrapper"></div>
+    <script>
+      window.gtranslateSettings = {
+        default_language: "en",
+        languages: ["en", "fr", "de", "it", "es", "pt"],
+        wrapper_selector: ".gtranslate_wrapper",
+        switcher_vertical_position: "bottom"
+      };
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
 </body>
 
 </html>
