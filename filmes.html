@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css">
     <script src="catalogo.js"></script>
@@ -142,43 +143,43 @@
     <script>
         const apikey = '69bc4860&i';
         const translateApiUrl = 'https://libretranslate.de/translate';
-
+    
         const frmPesquisa = document.querySelector("form");
-
+    
         frmPesquisa.onsubmit = (ev) => {
             ev.preventDefault();
-
+    
             const pesquisa = ev.target.pesquisa.value;
-
+    
             if (pesquisa === "") {
                 alert('Preencha o campo!');
                 return;
             }
-
+    
             fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => carregaLista(json))
                 .catch(error => console.error('Erro:', error));
         }
-
+    
         const carregaLista = (json) => {
             const lista = document.querySelector("div.lista");
             lista.innerHTML = "";
-
+    
             if (json.Response === "False") {
                 lista.innerHTML = `<p>Filme não encontrado.</p>`;
                 return;
             }
-
+    
             json.Search.forEach(element => {
                 let item = document.createElement("div");
                 item.classList.add("item");
-
+    
                 item.innerHTML = `<img src="${element.Poster}" alt="Poster de ${element.Title}"/><h2>${element.Title}</h2><button class="detalhes" onclick="carregaDetalhes('${element.imdbID}')">Detalhes</button>`;
                 lista.appendChild(item);
             });
         }
-
+    
         const carregaDetalhes = (id) => {
             fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
                 .then(result => result.json())
@@ -194,13 +195,14 @@
                     document.getElementById("Actors").innerText = json.Actors;
                     document.getElementById("BoxOffice").innerText = json.BoxOffice;
                     traduzirSinopse(json.Plot);
-
+    
                     detalhes.style.display = "block";
                     document.querySelector("div.lista").style.display = "none";
+                    document.querySelector(".melhor").style.display = "none"; // Esconde o título "MELHORES FILMES"
                 })
                 .catch(error => console.error('Erro:', error));
         }
-
+    
         const traduzirSinopse = (texto) => {
             fetch(translateApiUrl, {
                 method: 'POST',
@@ -218,10 +220,11 @@
             })
             .catch(error => console.error('Erro na tradução:', error));
         }
-
+    
         const voltar = () => {
             document.querySelector("div.detalhes").style.display = "none";
             document.querySelector("div.lista").style.display = "block";
+            document.querySelector(".melhor").style.display = "block";
         }
     </script>
 
