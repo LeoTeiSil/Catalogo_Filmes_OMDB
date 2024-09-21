@@ -48,7 +48,7 @@
         </form>
     </div>
 
-    <P class="melhor">MELHORES FILMES:</P>
+    <p class="melhor">MELHORES FILMES:</p>
     <div class="lista" id="filmList">
         <div class="item" data-id="1">
             <h2>A Lista de Schindler (1993)</h2>
@@ -127,20 +127,20 @@
         <img id="Poster" src="" alt="Poster do Filme">
         <div class="rating-container">
             <h1>&#9733</h1>
-             <span id="imdbRating"></span></p>
+            <span id="imdbRating"></span>
         </div>
         
         <p>Sinopse:</p>
         <p id="Plot"></p>
         <p><strong>Gênero:</strong> <span id="Genre"></span></p>
         <p><strong>Diretor:</strong> <span id="Director"></span></p>
-        <p><strong>Atores:</strong> <span id="Actors"></span></p>
+        <p><strong>Ator(es):</strong> <span id="Actors"></span></p>
         <p><strong>BoxOffice:</strong> <span id="BoxOffice"></span></p>
-        <p>Para voltar a tela incial clique no título do site "FILMES"</p>
+        <p>Para voltar à tela inicial, clique no título do site "FILMES"</p>
     </div>
 
     <script>
-        const apikey = '69bc4860&i';
+        const apikey = '69bc4860'; // Apenas a chave da API, sem &i
         const translateApiUrl = 'https://libretranslate.de/translate';
     
         const frmPesquisa = document.querySelector("form");
@@ -155,7 +155,7 @@
                 return;
             }
     
-            fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
+            fetch(`https://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`) // Altere para HTTPS
                 .then(result => result.json())
                 .then(json => carregaLista(json))
                 .catch(error => console.error('Erro:', error));
@@ -180,7 +180,7 @@
         }
     
         const carregaDetalhes = (id) => {
-            fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
+            fetch(`https://www.omdbapi.com/?i=${id}&apikey=${apikey}`) // Altere para HTTPS
                 .then(result => result.json())
                 .then(json => {
                     const detalhes = document.querySelector("div.detalhes");
@@ -236,9 +236,6 @@
         switcher_vertical_position: "bottom"
       };
     </script>
-<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
-<script>
-    const url = "https://www.omdbapi.com/?i=tt0034583&apikey=69bc4860";
-</script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
 </body>
 </html>
