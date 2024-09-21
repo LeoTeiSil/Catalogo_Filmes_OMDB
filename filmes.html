@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,7 +49,7 @@
         </form>
     </div>
 
-    <p class="melhor">MELHORES FILMES:</p>
+    <P class="melhor">MELHORES FILMES:</P>
     <div class="lista" id="filmList">
         <div class="item" data-id="1">
             <h2>A Lista de Schindler (1993)</h2>
@@ -127,20 +128,20 @@
         <img id="Poster" src="" alt="Poster do Filme">
         <div class="rating-container">
             <h1>&#9733</h1>
-            <span id="imdbRating"></span>
+             <span id="imdbRating"></span></p>
         </div>
         
         <p>Sinopse:</p>
         <p id="Plot"></p>
         <p><strong>Gênero:</strong> <span id="Genre"></span></p>
         <p><strong>Diretor:</strong> <span id="Director"></span></p>
-        <p><strong>Ator(es):</strong> <span id="Actors"></span></p>
+        <p><strong>Atores:</strong> <span id="Actors"></span></p>
         <p><strong>BoxOffice:</strong> <span id="BoxOffice"></span></p>
-        <p>Para voltar à tela inicial, clique no título do site "FILMES"</p>
+        <p>Para voltar a tela incial clique no título do site "FILMES"</p>
     </div>
 
     <script>
-        const apikey = '69bc4860'; // Apenas a chave da API, sem &i
+        const apikey = '69bc4860&i';
         const translateApiUrl = 'https://libretranslate.de/translate';
     
         const frmPesquisa = document.querySelector("form");
@@ -155,7 +156,7 @@
                 return;
             }
     
-            fetch(`https://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`) // Altere para HTTPS
+            fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => carregaLista(json))
                 .catch(error => console.error('Erro:', error));
@@ -180,7 +181,7 @@
         }
     
         const carregaDetalhes = (id) => {
-            fetch(`https://www.omdbapi.com/?i=${id}&apikey=${apikey}`) // Altere para HTTPS
+            fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => {
                     const detalhes = document.querySelector("div.detalhes");
@@ -238,4 +239,5 @@
     </script>
     <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
 </body>
+
 </html>
