@@ -156,7 +156,7 @@
                 return;
             }
     
-            fetch(`http://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
+            fetch(`https://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => carregaLista(json))
                 .catch(error => console.error('Erro:', error));
@@ -181,7 +181,7 @@
         }
     
         const carregaDetalhes = (id) => {
-            fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
+            fetch(`https://www.omdbapi.com/?i=${id}&apikey=${apikey}`)
                 .then(result => result.json())
                 .then(json => {
                     const detalhes = document.querySelector("div.detalhes");
