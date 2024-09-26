@@ -10,7 +10,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 30px;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -181,12 +181,13 @@ p.melhor {
     margin-bottom: 10px;
 }
 
+
 @media (min-width: 344px) {
     div.detalhes {
-        position:fixed;
-        top: 60%;
+        position: absolute;
+        top: 120px;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         align-items: center;
         background-color: rgb(150, 150, 150);
         text-align: center;
@@ -200,18 +201,19 @@ p.melhor {
         border-radius: 20px;
     }
  
- img{
-    height: 150px;
-    width: 150px;
- }   
+    img {
+        height: 150px;
+        width: 150px;
+    }
 }
+
 
 @media (min-width: 1200px) {
     div.detalhes {
-        position: fixed;
-        top: 57%;
+        position: absolute;
+        top: 120px;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         align-items: center;
         background-color: rgb(150, 150, 150);
         text-align: center;
@@ -225,8 +227,8 @@ p.melhor {
         border-radius: 20px;
     }
  
- img{
-    height: 190px;
-    width: 190px;
- }   
+    img {
+        height: 190px;
+        width: 190px;
+    }
 }
