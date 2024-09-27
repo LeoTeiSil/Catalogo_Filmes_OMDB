@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
     background-image: url(img/fundo.jpeg);
     background-repeat: no-repeat;
@@ -185,7 +191,7 @@ p.melhor {
 @media (min-width: 344px) {
     div.detalhes {
         position: absolute;
-        top: 120px;
+        top: 170px;
         left: 50%;
         transform: translateX(-50%);
         align-items: center;
@@ -211,7 +217,7 @@ p.melhor {
 @media (min-width: 1200px) {
     div.detalhes {
         position: absolute;
-        top: 120px;
+        top: 170px;
         left: 50%;
         transform: translateX(-50%);
         align-items: center;
